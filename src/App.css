@@ -8,9 +8,12 @@
 main {
     min-height: calc(100vh - 4em);
     position: relative;
+    padding-top: 4em;
+}
+
+.App {
     background-color: #01001e;
     color: #c1c5fc;
-    padding-top: 4em;
 }
 
 a {
