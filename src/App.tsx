@@ -6,6 +6,7 @@ import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import Login from "./pages/Login/Login";
 import Registration from "./pages/Registration/Registration";
+import Logout from "./pages/Logout/Logout";
 
 function App() {
     return (
@@ -16,6 +17,7 @@ function App() {
                     <Route path={"/"} element={<MainPage/>}/>
                     <Route path={"/login"} element={<Login/>}/>
                     <Route path={"/registration"} element={<Registration/>}/>
+                    <Route path={"/logout"} element={<Logout/>}/>
                 </Routes>
             </main>
             <Footer/>

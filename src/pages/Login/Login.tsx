@@ -2,12 +2,15 @@ import React, {useState} from 'react';
 import {LoginStyled, FormStyled, LinkStyled} from "./Login.styled";
 import Input from "../../ui/Input/Input";
 import Button from "../../ui/Button/Button";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
+import User from "../../store/User"
 
 const Login = () => {
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+
+    const navigate = useNavigate()
 
     return (
         <LoginStyled>
@@ -25,7 +28,10 @@ const Login = () => {
                     width={'300px'}/>
                 <Button
                     theme={'light'}
-                    onClick={() => {}}
+                    onClick={() => {
+                        User.login('', '')
+                        navigate('/')
+                    }}
                 >
                     Войти
                 </Button>

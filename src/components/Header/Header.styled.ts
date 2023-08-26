@@ -5,7 +5,7 @@ const HeaderStyled = styled.div`
   left: 0;
   z-index: 10;
   height: 4em;
-  position: absolute;
+  position: fixed;
   width: 100%;
   background-color: #c1c5fc;
   border-bottom: 1px solid #01001e;
