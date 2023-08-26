@@ -3,9 +3,9 @@ import {MainPageStyled} from "./MainPage.styled";
 
 const MainPage = () => {
     return (
-        <div>
+        <MainPageStyled>
             <h1>Main</h1>
-        </div>
+        </MainPageStyled>
     );
 };
 

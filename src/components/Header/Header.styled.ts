@@ -8,7 +8,7 @@ const HeaderStyled = styled.div`
   position: absolute;
   width: 100%;
   background-color: #c1c5fc;
-  border-bottom: 1px solid blue;
+  border-bottom: 1px solid #01001e;
   color: #01001e;
 
   display: flex;
@@ -53,6 +53,7 @@ const Container = styled.div`
     color: #01001e;
     height: 100%;
     width: auto;
+    z-index: 15;
     
     &:hover {
       cursor: pointer;
@@ -67,4 +68,31 @@ const Container = styled.div`
   }
 `
 
-export {HeaderStyled, Container}
+const DropDown = styled.div`
+  position: absolute;
+  //height: calc(100vh - 4em);
+  top: 4em;
+  left: 0;
+  height: 0;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  display: none;
+  background-color: #c1c5fc;
+  
+  .link {
+    padding: 1em;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    &:hover {
+      cursor: pointer;
+      background-color: white;
+    }
+  }
+`
+
+export {HeaderStyled, Container, DropDown}

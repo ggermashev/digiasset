@@ -1,9 +1,51 @@
-import React from 'react';
-import {HeaderStyled, Container} from "./Header.styled";
+import React, {useCallback, useEffect, useState} from 'react';
+import {HeaderStyled, Container, DropDown} from "./Header.styled";
 import MenuIcon from '@mui/icons-material/Menu';
 import {Link, useParams} from "react-router-dom";
+import gsap from "gsap"
 
 const Header = () => {
+
+    const tl = gsap.timeline()
+
+    const [menuIsOpened, setMenuIsOpened] = useState(false)
+
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth)
+    window.addEventListener('resize', () => {
+        setWindowWidth(window.innerWidth)
+    })
+
+    const onMenuClick = useCallback(() => {
+        const isOpened = menuIsOpened
+        setMenuIsOpened(!isOpened)
+
+        if (isOpened) {
+            tl.to('#dropdown', {
+                ease: 'power4',
+                duration: .5,
+                display: 'none',
+                opacity: 0,
+                height: 0,
+            })
+        } else {
+            tl.to('#dropdown', {
+                ease: 'power2',
+                duration: .4,
+                display: `flex`,
+                opacity: 1,
+                height: `calc(100vh - 4em)`,
+            })
+        }
+
+    }, [menuIsOpened])
+
+    useEffect(() => {
+        if (windowWidth >= 767) {
+            if (menuIsOpened) {
+                onMenuClick()
+            }
+        }
+    }, [windowWidth])
 
     return (
         <HeaderStyled>
@@ -12,8 +54,22 @@ const Header = () => {
             </Container>
             <Container>
                 <Link className={"link"} to={"/login"}>Вход</Link>
-                <MenuIcon className={"menu-icon"}/>
+                <MenuIcon
+                    className={"menu-icon"}
+                    onClick={() => {
+                        onMenuClick()
+                    }}
+                />
             </Container>
+            <DropDown
+                id={'dropdown'}
+                onClick={() => {
+                    onMenuClick()
+                }}
+            >
+                <Link className={"link"} to={"/"}>Главная</Link>
+                <Link className={"link"} to={"/login"}>Вход</Link>
+            </DropDown>
         </HeaderStyled>
     );
 };
