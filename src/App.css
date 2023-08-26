@@ -6,8 +6,11 @@
 }
 
 main {
-    min-height: 100vh;
+    min-height: calc(100vh - 4em);
     position: relative;
+    background-color: #01001e;
+    color: #c1c5fc;
+    padding-top: 4em;
 }
 
 a {
