@@ -1,0 +1,15 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Verdana, serif;
+}
+
+main {
+    min-height: 100vh;
+    position: relative;
+}
+
+a {
+    text-decoration: none;
+}
