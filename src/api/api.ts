@@ -19,7 +19,6 @@ async function login({email, password}: { email: string, password: string }) {
 
 async function registration({name, surname, nickname, email, password}:
                                 { name: string, surname: string, nickname: string, email: string, password: string }) {
-    console.log(name, surname, nickname, email, password)
     const response = await fetch('http://91.200.84.58:50055/api/signup', {
         method: 'POST',
         headers: {
@@ -28,7 +27,6 @@ async function registration({name, surname, nickname, email, password}:
         body: JSON.stringify({name, surname, nickname, email, password})
     })
     const data: { access_token: string, refresh_token: string } = await response.json()
-    console.log(data)
     localStorage.setItem('access_token', data.access_token)
     const cookies = new Cookies();
     cookies.set('refresh_token', data.refresh_token, {path: '/'});
@@ -53,6 +51,9 @@ async function logout() {
             }
         })
     }
+    localStorage.removeItem('access_token')
+    const cookies = new Cookies();
+    cookies.remove('refresh_token')
     const data = await response.json()
     return data
 }
@@ -69,7 +70,7 @@ async function refresh_token() {
     const data: { access_token: string, refresh_token: string } = await response.json()
     localStorage.setItem('access_token', data.access_token)
     cookies.set('refresh_token', data.refresh_token, {path: '/'});
-    return data
+    return response.status
 }
 
 

@@ -6,7 +6,7 @@ import gsap from "gsap"
 import User from "../../store/User"
 import {observer} from "mobx-react-lite";
 
-const Header = observer( () => {
+const Header = observer(() => {
 
     const tl = gsap.timeline()
 
@@ -53,12 +53,17 @@ const Header = observer( () => {
         <HeaderStyled>
             <Container>
                 <Link className={"link"} to={"/"}>Главная</Link>
-                <Link className={"link"} to={"/profile"}>Профиль</Link>
+                {User.isAuth &&
+                    <>
+                        <Link className={"link"} to={"/profile"}>Профиль</Link>
+                        <Link className={"link"} to={"/marketplace"}>Торговая площадка</Link>
+                    </>
+                }
             </Container>
             <Container>
                 {User.isAuth
-                ?<Link className={"link"} to={"/logout"}>Выход</Link>
-                :<Link className={"link"} to={"/login"}>Вход</Link>
+                    ? <Link className={"link"} to={"/logout"}>Выход</Link>
+                    : <Link className={"link"} to={"/login"}>Вход</Link>
                 }
                 <MenuIcon
                     className={"menu-icon"}
@@ -74,10 +79,15 @@ const Header = observer( () => {
                 }}
             >
                 <Link className={"link"} to={"/"}>Главная</Link>
-                <Link className={"link"} to={"/profile"}>Профиль</Link>
+                {User.isAuth &&
+                    <>
+                        <Link className={"link"} to={"/profile"}>Профиль</Link>
+                        <Link className={"link"} to={"/marketplace"}>Торговая площадка</Link>
+                    </>
+                }
                 {User.isAuth
-                    ?<Link className={"link"} to={"/logout"}>Выход</Link>
-                    :<Link className={"link"} to={"/login"}>Вход</Link>
+                    ? <Link className={"link"} to={"/logout"} style={{marginTop: '2em'}}>Выход</Link>
+                    : <Link className={"link"} to={"/login"} style={{marginTop: '2em'}}>Вход</Link>
                 }
             </DropDown>
         </HeaderStyled>

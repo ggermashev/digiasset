@@ -1,9 +1,9 @@
 import React, {useEffect} from 'react';
-import {ProfileStyled} from "./Profile.styled";
-import User from "../../store/User"
+import {MarketPlaceStyled} from "./MarketPlace.styled";
 import {useNavigate} from "react-router-dom";
+import User from "../../store/User";
 
-const Profile = () => {
+const MarketPlace = () => {
 
     const navigate = useNavigate()
 
@@ -16,10 +16,10 @@ const Profile = () => {
     }, [])
 
     return (
-        <ProfileStyled>
-            
-        </ProfileStyled>
+        <MarketPlaceStyled>
+
+        </MarketPlaceStyled>
     );
 };
 
-export default Profile;
+export default MarketPlace;

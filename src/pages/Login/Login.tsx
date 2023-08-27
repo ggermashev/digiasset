@@ -29,8 +29,15 @@ const Login = () => {
                 <Button
                     theme={'light'}
                     onClick={() => {
-                        User.login(email, password)
-                        navigate('/')
+                        User.login(email, password).then(
+                            success => {
+                                navigate('/')
+                            },
+                            err => {
+                                console.log(err)
+                            }
+                        )
+                        // navigate('/')
                     }}
                 >
                     Войти

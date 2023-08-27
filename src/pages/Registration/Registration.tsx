@@ -48,8 +48,14 @@ const Registration = () => {
                 <Button
                     theme={'light'}
                     onClick={() => {
-                        User.registration({name, surname, nickname, email, password})
-                        navigate('/')
+                        User.registration({name, surname, nickname, email, password}).then(
+                            success => {
+                                navigate('/')
+                            },
+                            err => {
+                                console.log(err)
+                            }
+                        )
                     }}
                 >
                     Создать
