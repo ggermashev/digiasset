@@ -36,6 +36,8 @@ const Container = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    color: #01001e;
+    user-select: none;
 
     &:active {
       color: white;

@@ -1,4 +1,4 @@
-import React, {FC, useState} from 'react';
+import React, {FC, Fragment, useState} from 'react';
 import {FooterStyled, Row, Info, Description, Contacts, PersonalInfoStyled} from "./Footer.styled";
 import ModalWindow from "../ModalWindow/ModalWindow";
 import {Link} from "react-router-dom";
@@ -116,7 +116,7 @@ const Footer = () => {
             <h1>Team <span style={{textShadow: 'black 0 0 .5em', color: 'white'}}>Axiom</span></h1>
             <Row>
                 {teammates.map(tm =>
-                    <>
+                    <Fragment key={tm.tgNickname}>
                         <h3
                             onClick={() => {
                                 setCurrentTeammate(tm)
@@ -126,7 +126,7 @@ const Footer = () => {
                             {tm.surname}
                             <p>{tm.name}</p>
                         </h3>
-                    </>
+                    </Fragment>
                 )}
             </Row>
             <PersonalInfo

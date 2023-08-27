@@ -2,7 +2,8 @@ import React, {useState} from 'react';
 import {RegistrationStyled, FormStyled, LinkStyled} from "./Registration.styled";
 import Input from "../../ui/Input/Input";
 import Button from "../../ui/Button/Button";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
+import User from "../../store/User"
 
 const Registration = () => {
 
@@ -11,6 +12,8 @@ const Registration = () => {
     const [nickname, setNickname] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+
+    const navigate = useNavigate()
 
     return (
         <RegistrationStyled>
@@ -45,6 +48,8 @@ const Registration = () => {
                 <Button
                     theme={'light'}
                     onClick={() => {
+                        User.registration({name, surname, nickname, email, password})
+                        navigate('/')
                     }}
                 >
                     Создать

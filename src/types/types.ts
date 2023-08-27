@@ -1,7 +1,9 @@
 
 
 export interface IUser {
-    isAuth: boolean,
+    name: string,
+    surname: string,
     nickname: string,
-
+    email: string,
+    password: string
 }

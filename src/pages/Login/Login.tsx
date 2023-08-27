@@ -29,7 +29,7 @@ const Login = () => {
                 <Button
                     theme={'light'}
                     onClick={() => {
-                        User.login('', '')
+                        User.login(email, password)
                         navigate('/')
                     }}
                 >
