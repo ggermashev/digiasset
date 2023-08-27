@@ -1,12 +1,12 @@
 import styled from "styled-components";
 
 const FooterStyled = styled.div`
-  min-height: 10em;
+  height: calc(100vh / 2);
   background-color: #c1c5fc;
   color: #01001e;
   width: 80%;
   border-radius: 20vw 20vw 0 0;
-  margin: 0 auto;
+  margin: 2em auto 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -14,6 +14,7 @@ const FooterStyled = styled.div`
   padding: 2em;
   gap: 2em;
   position: relative;
+  z-index: 10;
 
   h1 {
     text-align: center;
