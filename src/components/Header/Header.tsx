@@ -53,6 +53,7 @@ const Header = observer( () => {
         <HeaderStyled>
             <Container>
                 <Link className={"link"} to={"/"}>Главная</Link>
+                <Link className={"link"} to={"/profile"}>Профиль</Link>
             </Container>
             <Container>
                 {User.isAuth
@@ -73,7 +74,11 @@ const Header = observer( () => {
                 }}
             >
                 <Link className={"link"} to={"/"}>Главная</Link>
-                <Link className={"link"} to={"/login"}>Вход</Link>
+                <Link className={"link"} to={"/profile"}>Профиль</Link>
+                {User.isAuth
+                    ?<Link className={"link"} to={"/logout"}>Выход</Link>
+                    :<Link className={"link"} to={"/login"}>Вход</Link>
+                }
             </DropDown>
         </HeaderStyled>
     );
