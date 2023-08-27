@@ -5,7 +5,7 @@ const FooterStyled = styled.div`
   background-color: #c1c5fc;
   color: #01001e;
   width: 80%;
-  border-radius: 20vw 20vw 0 0;
+  border-radius: 10vw 10vw 0 0;
   margin: 2em auto 0 auto;
   display: flex;
   flex-direction: column;
@@ -106,5 +106,4 @@ const Contacts = styled.div`
   align-items: start;
   width: 100%;
 `
-
 export {FooterStyled, Row, Info, Description, Contacts, PersonalInfoStyled}

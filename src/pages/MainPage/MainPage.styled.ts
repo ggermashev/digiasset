@@ -20,6 +20,10 @@ const MainPageStyled = styled.div`
 
 const Title = styled.h1<ITitle>`
   font-size: 1.5em;
+  
+  button {
+    width: 80vw;
+  }
 
   @media (min-width: 767px) {
     font-size: 2em;
@@ -91,5 +95,22 @@ const BG = styled.div<IBg>`
   background-size: cover;
 `
 
+const Advantages = styled.div`
+    h1::before {
+      content: url(${require('../../images/checkmark.png')});
+    }
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2em;
+  
+  h1 {
+    width: 100%;
+    text-align: start;
+  }
+`
 
-export {MainPageStyled, Title, BG, Row, Law}
+
+export {MainPageStyled, Title, BG, Row, Law, Advantages}

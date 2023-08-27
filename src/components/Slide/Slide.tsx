@@ -8,9 +8,16 @@ interface ISlide {
     bgColor?: string,
     justifyContent?: string
     onVisibleAdd?: () => void,
+    ref?: React.MutableRefObject<any>,
 }
 
-const Slide: FC<ISlide> = ({children, id, bgColor='rgba(193, 197, 252, 1)', justifyContent, onVisibleAdd}) => {
+const Slide: FC<ISlide> = ({
+                               children,
+                               id,
+                               bgColor='rgba(193, 197, 252, 1)',
+                               justifyContent,
+                               onVisibleAdd,
+                               ref}) => {
 
     const onVisible = useMemo( () => {
         return (intersecting: boolean) => {
@@ -58,6 +65,7 @@ const Slide: FC<ISlide> = ({children, id, bgColor='rgba(193, 197, 252, 1)', just
         <SlideStyled
             id={`slide-${id}`}
             $justifyContent={justifyContent}
+            ref={ref}
         >
             {children}
         </SlideStyled>

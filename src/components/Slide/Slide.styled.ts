@@ -8,7 +8,7 @@ const SlideStyled = styled.div<ISlide>`
   position: relative;
   width: calc(100% );
   //border-radius: 5vw;
-  height: calc(100vh - 4em);
+  height: calc(100vh);
   display: flex;
   flex-direction: column;
   align-items: center;
