@@ -10,16 +10,20 @@ import Logout from "./pages/Logout/Logout";
 import Profile from "./pages/Profile/Profile";
 import MarketPlace from "./pages/MarketPlace/MarketPlace";
 import User from "./store/User"
+import {observer} from "mobx-react-lite";
 
-function App() {
+const App = observer( () => {
 
     const navigate = useNavigate()
 
     useEffect(() => {
-        User.refresh().then(
-            success => {console.log('success')},
-            err => {navigate('/login')}
-        )
+        try {
+            User.refresh()
+
+        } catch (e) {
+            navigate('/login')
+        }
+
     }, [])
 
     return (
@@ -38,6 +42,6 @@ function App() {
             <Footer/>
         </div>
     );
-}
+})
 
 export default App;

@@ -61,8 +61,9 @@ const Header = observer(() => {
                 }
             </Container>
             <Container>
+                {User.isAuth && <Link to={"#"} >{User?.nickname}</Link>}
                 {User.isAuth
-                    ? <Link className={"link"} to={"/logout"}>Выход</Link>
+                    ? <Link className={"link"} to={"/logout"} >Выход</Link>
                     : <Link className={"link"} to={"/login"}>Вход</Link>
                 }
                 <MenuIcon
@@ -86,8 +87,12 @@ const Header = observer(() => {
                     </>
                 }
                 {User.isAuth
-                    ? <Link className={"link"} to={"/logout"} style={{marginTop: '2em'}}>Выход</Link>
-                    : <Link className={"link"} to={"/login"} style={{marginTop: '2em'}}>Вход</Link>
+                    ? <>
+                        <Link className={"link"} to={"/logout"} style={{marginTop: '2em'}}>Выход</Link>
+                    </>
+                    : <>
+                        <Link className={"link"} to={"/login"} style={{marginTop: '2em'}}>Вход</Link>
+                    </>
                 }
             </DropDown>
         </HeaderStyled>

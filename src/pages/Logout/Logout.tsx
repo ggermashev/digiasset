@@ -8,11 +8,12 @@ const Logout = observer(() => {
     const navigate = useNavigate()
 
     useEffect(() => {
-        User.logout().then(
-            success => {navigate('/login')},
-            err => {console.log(err)}
-        )
-        navigate('/login')
+        try {
+            User.logout()
+            navigate('/login')
+        } catch (e) {
+            console.log(e)
+        }
     }, [])
 
     return (

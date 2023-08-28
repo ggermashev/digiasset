@@ -17,6 +17,7 @@ const Wrap = styled.div<IWrap>`
   position: relative;
   gap: .1em;
   color: #01001e;
+  padding-bottom: 1em;
 
   ${props => props.$width && css`
     width: ${props.$width};
@@ -52,6 +53,10 @@ const InputStyled = styled.input<IInput>`
 `
 
 const Alert = styled.p`
+  color: red;
+  font-size: .8em;
+  position: absolute;
+  bottom: 0;
 `
 
 export {InputStyled, Wrap, Label, Alert}

@@ -1,16 +1,30 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {LoginStyled, FormStyled, LinkStyled} from "./Login.styled";
 import Input from "../../ui/Input/Input";
 import Button from "../../ui/Button/Button";
 import {Link, useNavigate} from "react-router-dom";
 import User from "../../store/User"
+import {observer} from "mobx-react-lite";
 
-const Login = () => {
+const Login = observer(() => {
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
+    const [emailIsValid, setEmailIsValid] = useState(false)
+    const [passwordIsValid, setPasswordIsValid] = useState(false)
+
     const navigate = useNavigate()
+
+    useEffect(() => {
+        setTimeout(() => {
+            if (User.isAuth) {
+                navigate('/')
+            }
+        }, 500)
+
+        window.scroll(0, 0)
+    }, [])
 
     return (
         <LoginStyled>
@@ -18,26 +32,35 @@ const Login = () => {
                 <h3>Вход в аккаунт</h3>
                 <Input
                     label={"email"}
+                    type={"email"}
                     value={email}
                     setValue={setEmail}
-                    width={'300px'}/>
+                    width={'300px'}
+                    isValid={emailIsValid}
+                    setIsValid={setEmailIsValid}
+                />
                 <Input
                     label={"password"}
+                    type={"password"}
                     value={password}
                     setValue={setPassword}
-                    width={'300px'}/>
+                    width={'300px'}
+                    isValid={passwordIsValid}
+                    setIsValid={setPasswordIsValid}
+                />
                 <Button
                     theme={'light'}
                     onClick={() => {
-                        User.login(email, password).then(
-                            success => {
-                                navigate('/')
-                            },
-                            err => {
-                                console.log(err)
-                            }
-                        )
-                        // navigate('/')
+                        if (emailIsValid && passwordIsValid) {
+                            User.login(email, password)
+                            setTimeout(() => {
+                                if (User.isAuth) {
+                                    navigate('/')
+                                } else {
+                                    console.log('Ошибка входа')
+                                }
+                            }, 500)
+                        }
                     }}
                 >
                     Войти
@@ -46,6 +69,6 @@ const Login = () => {
             </FormStyled>
         </LoginStyled>
     );
-};
+});
 
 export default Login;
