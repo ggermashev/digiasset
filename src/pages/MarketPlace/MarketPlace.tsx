@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import {MarketPlaceStyled, Filters, Products} from "./MarketPlace.styled";
+import React, {useCallback, useEffect, useState} from 'react';
+import {MarketPlaceStyled, Filters, Products, Up, Border} from "./MarketPlace.styled";
 import {useNavigate} from "react-router-dom";
 import User from "../../store/User";
 import {observer} from "mobx-react-lite";
@@ -12,7 +12,7 @@ const MarketPlace = observer(() => {
     const navigate = useNavigate()
 
     const cats = ['Ценная бумага', 'Контракт', 'Договор', 'Другое']
-    const confidences = ['Высокая', 'Низкая', 'Не определено']
+    const confidences = ['Высокое', 'Низкое', 'Не определено']
     const payments = ['Деньги', 'ЦФА']
     const sorts = ['Дата выпуска', 'Цена']
 
@@ -187,6 +187,32 @@ const MarketPlace = observer(() => {
         },
     ]
 
+    const [dfa, setDfa] = useState<IDfa[]>(dfas.slice(0, 12))
+
+    const onVisible = useCallback((isVisible: boolean) => {
+        if (isVisible) {
+            setDfa([...dfa, ...dfas
+            ])
+        }
+    }, [dfa])
+
+    useEffect(() => {
+        let options = {
+            root: null,
+            rootMargin: "0px",
+            threshold: 1,
+        };
+        let observer = new IntersectionObserver(entry => {
+            onVisible(entry[0].isIntersecting)
+        }, options);
+        observer.observe(document.querySelector(`#border`) as Element)
+
+        return () => {
+            observer.disconnect()
+        }
+    }, [dfa])
+
+
     return (
         <MarketPlaceStyled>
             <Filters>
@@ -224,21 +250,27 @@ const MarketPlace = observer(() => {
                 />
             </Filters>
             <Products>
-                {dfas.map(dfa =>
-                    <Dfa
-                        className={'dfa'}
-                        image={dfa.image}
-                        key={dfa.title}
-                        title={dfa.title}
-                        initial_price={dfa.initial_price}
-                        price={dfa.price}
-                        category={dfa.category}
-                        confidence={dfa.confidence}
-                        payment={dfa.payment}
-                        created_at={dfa.created_at}
-                        owner={dfa.owner}
-                    />
+                {dfa.map((dfa, i) =>
+                    <>
+                        <Dfa
+                            className={'dfa'}
+                            image={dfa.image}
+                            key={dfa.title}
+                            title={dfa.title}
+                            initial_price={dfa.initial_price}
+                            price={dfa.price}
+                            category={dfa.category}
+                            confidence={dfa.confidence}
+                            payment={dfa.payment}
+                            created_at={dfa.created_at}
+                            owner={dfa.owner}
+                        />
+                        {i % 12 === 11 && i > 0 &&
+                            <Up onClick={() => {window.scrollTo(0, 0)}}>Наверх</Up>
+                        }
+                    </>
                 )}
+                <Border id={"border"}/>
             </Products>
         </MarketPlaceStyled>
     );

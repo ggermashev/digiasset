@@ -9,15 +9,22 @@ export interface IUser {
     dfa_amount?: number
 }
 
+export type ICategory = 'Ценная бумаги' | 'Контракт' | 'Договор' | 'Другое'
+export type IConfidence = 'Низкое' | 'Высокое' | 'Не определено'
+export type IPayment = 'Деньги' | 'ЦФА' | 'Все'
+export type ISortBy = 'Дата выпуска' | 'Цена'
+
 export interface IDfa {
+    id?: string,
     title: string,
     image?: string,
     description?: string,
     initial_price: number,
     price: number,
-    category: 'Ценная бумаги' | 'Контракт' | 'Договор' | 'Другое',
-    confidence: 'Низкое' | 'Высокое' | 'Не определено',
-    payment: 'Деньги' | 'ЦФА' | 'Все',
+    category: ICategory,
+    confidence: IConfidence,
+    payment: IPayment,
     created_at: string,
-    owner: IUser
+    owner: IUser,
+    created_by?: IUser,
 }

@@ -90,7 +90,7 @@ const Footer = () => {
             name: 'Константин',
             surname: 'Новоселов',
             role: 'Инженер баз данных',
-            description: 'Стэк технологий: PostgreSQL / Greenplum / Redis / Tarantool / ClickHouse',
+            description: 'Стэк технологий: PostgreSQL / Greenplum / Redis / Tarantool / ClickHouse / MongoDB',
             tgNickname: '@knstntnovoslv',
             tgLink: 'https://t.me/knstntnovoslv',
             email: 'knstntnovoslv@gmail.com',
