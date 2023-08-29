@@ -259,6 +259,7 @@ async function buyDfa(dfaId: string) {
         body: JSON.stringify({id: dfaId})
     })
     if (!response.ok) {
+        await refresh_token()
         response = await fetch(`http://91.200.84.58:50055/api/assets/buy`, {
             headers: {
                 "Content-Type": "application/json",
