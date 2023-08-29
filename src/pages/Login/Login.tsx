@@ -57,7 +57,7 @@ const Login = observer(() => {
                                 if (User.isAuth) {
                                     navigate('/profile')
                                 } else {
-                                    console.log('Ошибка входа')
+                                    alert('Ошибка входа')
                                 }
                             }, 500)
                         }

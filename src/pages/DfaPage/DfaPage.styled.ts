@@ -15,28 +15,29 @@ const DfaPageStyled = styled.div`
     color: white;
   }
 
-  @media(max-width: 1100px) {
+  @media (max-width: 1100px) {
     flex-direction: column;
     align-items: center;
   }
 `
 const ShortInfo = styled.div`
   width: 400px;
+  max-width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 1em;
-  
+
   h2 {
     text-align: center;
   }
-  
+
   img {
     width: 300px;
     height: auto;
     max-width: 100%;
   }
-  
+
   svg {
     position: absolute;
     align-self: start;
@@ -44,7 +45,7 @@ const ShortInfo = styled.div`
     width: 2em;
     top: -2.5em;
     left: .5em;
-    
+
     &:hover {
       cursor: pointer;
       color: #4799eb;
@@ -58,43 +59,43 @@ const LongInfo = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1em;
-  color: rgba(255,255,255,0.5);
-  
-  p {
+  color: rgba(255, 255, 255, 0.5);
+
+  p.description {
     line-height: 1.5em;
-    @media(max-width: 1400px) {
+    @media (max-width: 1400px) {
       width: 600px;
     }
-    @media(max-width: 1100px) {
+    @media (max-width: 1100px) {
       width: 600px;
     }
-    @media(max-width: 650px) {
+    @media (max-width: 650px) {
       width: 550px;
     }
-    @media(max-width: 580px) {
+    @media (max-width: 580px) {
       width: 450px;
     }
-    @media(max-width: 500px) {
+    @media (max-width: 500px) {
       width: 400px;
     }
-    @media(max-width: 430px) {
+    @media (max-width: 430px) {
       width: 350px;
     }
-    @media(max-width: 390px) {
+    @media (max-width: 390px) {
       width: 300px;
     }
-    @media(max-width: 330px) {
+    @media (max-width: 330px) {
       width: 250px;
     }
-    @media(max-width: 270px) {
+    @media (max-width: 270px) {
       width: 200px;
     }
   }
 
-  @media(max-width: 1100px) {
+  @media (max-width: 1100px) {
     align-items: center;
   }
-  
+
 `
 
 const AdditionalInfo = styled.div`
@@ -107,20 +108,20 @@ const AdditionalInfo = styled.div`
   max-width: 900px;
   min-width: 600px;
   margin: 0 auto;
-  
-  @media(max-width: 650px) {
+
+  @media (max-width: 650px) {
     width: 100%;
     min-width: 0;
   }
 
   div {
     width: 26%;
-    
-    @media(max-width: 1350px) {
+
+    @media (max-width: 1350px) {
       width: 34%;
     }
 
-    @media(max-width: 650px) {
+    @media (max-width: 650px) {
       width: 100%;
     }
   }
@@ -137,49 +138,51 @@ const AdditionalInfo = styled.div`
 
 const Owner = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: start;
   justify-content: center;
-  flex-wrap: wrap;
+  //flex-wrap: wrap;
   position: relative;
   gap: 1em;
-  max-width: 900px;
+  //max-width: 900px;
+  width: 100%;
   min-width: 600px;
 
-  @media(max-width: 650px) {
+  @media (max-width: 767px) {
     width: 100%;
+    flex-direction: column;
+    justify-content: start;
     min-width: 0;
+    //margin-left: 1em;
+    gap: .1em;
   }
 
   div {
-    width: 100%;
-    @media(max-width: 1400px) {
-      width: 600px;
-    }
-    @media(max-width: 1100px) {
-      width: 600px;
-    }
-    @media(max-width: 650px) {
-      width: 550px;
-    }
-    @media(max-width: 580px) {
-      width: 450px;
-    }
-    @media(max-width: 500px) {
-      width: 400px;
-    }
-    @media(max-width: 430px) {
-      width: 350px;
-    }
-    @media(max-width: 390px) {
-      width: 300px;
-    }
-    @media(max-width: 330px) {
-      width: 250px;
-    }
-    @media(max-width: 270px) {
+    width: 30%;
+    @media (max-width: 1400px) {
       width: 200px;
     }
+    @media (max-width: 767px) {
+      width: 150px;
+    }
+    //@media(max-width: 580px) {
+    //  width: 450px;
+    //}
+    //@media(max-width: 500px) {
+    //  width: 400px;
+    //}
+    //@media(max-width: 430px) {
+    //  width: 350px;
+    //}
+    //@media(max-width: 390px) {
+    //  width: 300px;
+    //}
+    //@media(max-width: 330px) {
+    //  width: 250px;
+    //}
+    //@media(max-width: 270px) {
+    //  width: 200px;
+    //}
   }
 `
 
@@ -191,11 +194,18 @@ const Row = styled.div`
   gap: 1em;
 `
 
+const BreakLine = styled.div`
+  width: 100%;
+  height: 1px;
+  background-color: white;
+`
+
 export {
     DfaPageStyled,
     ShortInfo,
     LongInfo,
     AdditionalInfo,
     Owner,
-    Row
+    Row,
+    BreakLine
 }

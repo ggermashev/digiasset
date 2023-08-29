@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import {DfaPageStyled, ShortInfo, LongInfo, AdditionalInfo, Owner, Row} from "./DfaPage.styled";
+import React, {Fragment, useEffect, useState} from 'react';
+import {DfaPageStyled, ShortInfo, LongInfo, AdditionalInfo, Owner, Row, BreakLine} from "./DfaPage.styled";
 import ReplyIcon from '@mui/icons-material/Reply';
 import Information from "../../ui/Information/Information";
 import {IDfa} from "../../types/types";
@@ -36,7 +36,11 @@ const DfaPage = () => {
                     setDfa(data)
                     const purch = data.purchases
                     purch?.sort((a: IPurchase, b: IPurchase) => {
-                        return a.datetime > b.datetime
+                        if (a.datetime < b.datetime) {
+                            return 1
+                        } else {
+                            return -1
+                        }
                     })
                     setPurchases(purch)
                 }
@@ -69,7 +73,7 @@ const DfaPage = () => {
                     </Row>
                 </ShortInfo>
                 <LongInfo>
-                    <p style={{color: 'white'}}>{dfa?.description}</p>
+                    <p className={'description'} style={{color: 'white'}}>{dfa?.description}</p>
                     <h3>Дополнительная информация</h3>
                     <AdditionalInfo>
                         <Information title={"Стоимость"}>{dfa?.price}</Information>
@@ -78,7 +82,7 @@ const DfaPage = () => {
                         <Information title={"Доверие"}>{dfa?.confidence}</Information>
                         <Information
                             title={"Дата выпуска"}>{dfa?.created_at.split(', ')[1].split(' ').slice(0, 3).join(' ')}</Information>
-                        <Information title={"ЦФА выпущено"}>{purchases?.[0].nickname}</Information>
+                        <Information title={"ЦФА выпущено"}>{purchases?.at(-1)?.nickname}</Information>
                     </AdditionalInfo>
                     <Row>
                         <Button theme={'dark'} onClick={() => {
@@ -91,13 +95,21 @@ const DfaPage = () => {
                     </Row>
                     <h3>Владелец</h3>
                     <Owner>
-                        <Information title={"Имя"}>{purchases?.at(-1)?.name}</Information>
-                        <Information title={"Фамилия"}>{purchases?.at(-1)?.surname}</Information>
-                        <Information title={"Имя пользователя"}>{purchases?.at(-1)?.nickname}</Information>
+                        <Information title={"Имя"}>{purchases?.at(0)?.name}</Information>
+                        <Information title={"Фамилия"}>{purchases?.at(0)?.surname}</Information>
+                        <Information title={"Имя пользователя"}>{purchases?.at(0)?.nickname}</Information>
                     </Owner>
-                    <h3>История цен</h3>
-
                     <h3>Предыдущие владельцы</h3>
+                    {purchases?.slice(1)?.map(purch =>
+                        <Fragment key={purch.datetime}>
+                            <BreakLine/>
+                            <Owner>
+                                <Information title={"Имя"}>{purch.name}</Information>
+                                <Information title={"Фамилия"}>{purch.surname}</Information>
+                                <Information title={"Имя пользователя"}>{purch.nickname}</Information>
+                            </Owner>
+                            <BreakLine/>
+                        </Fragment>)}
                 </LongInfo>
             </DfaPageStyled>
             <ModalWindow isVisible={modalIsVisible} setIsVisible={setModalIsVisible}>

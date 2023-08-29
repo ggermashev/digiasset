@@ -90,7 +90,7 @@ const Registration = observer(() => {
                                 if (User.isAuth) {
                                     navigate('/profile')
                                 } else {
-                                    console.log('Ошибка регистрации')
+                                    alert('Ошибка регистрации')
                                 }
                             }, 500)
                         }

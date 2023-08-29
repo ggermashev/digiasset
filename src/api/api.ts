@@ -83,8 +83,6 @@ async function getDfa(
     if (sortBy === 'Цена') {
         sort_by = 'price'
     }
-    console.log('api limit:' + limit)
-    console.log('api offset: '+ offset)
     let response = await fetch(`http://91.200.84.58:50055/api/assets/published?` +
         `${category !== 'Все' ? `category=${category}&` : ''}${confidence !== 'Все' ? `confidence=${confidence}&` : ''}${payment !== 'Все' ? `payment=${payment}&` : ''}${sortBy !== 'Нет' ? `sort_by=${sort_by}&` : ''}limit=${limit}&offset=${offset}`, {
         headers: {
@@ -106,7 +104,6 @@ async function getDfa(
         throw new Error('Ошибка получения ЦФА')
     }
     const data = await response.json()
-    console.log(data.assets.length)
     return data
 }
 

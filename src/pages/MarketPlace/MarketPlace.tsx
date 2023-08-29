@@ -30,7 +30,6 @@ const MarketPlace = observer(() => {
                 navigate('/login')
             }
             await DfaStore.loadData({category: cat, confidence, payment, sortBy, limit: 6})
-            console.log(DfaStore.data.length)
             setDfa(DfaStore.data)
         }, 500)
 
