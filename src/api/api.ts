@@ -225,4 +225,4 @@ async function publishDfa(dfaId: string, price: number, isPublished: boolean) {
     return data
 }
 
-export {login, registration, logout, refresh_token, getDfa}
+export {login, registration, logout, refresh_token, getDfa, getDfaById, createDfa, getDfaByUser, buyDfa, publishDfa}

@@ -14,7 +14,7 @@ interface ISlide {
 const Slide: FC<ISlide> = ({
                                children,
                                id,
-                               bgColor='rgba(193, 197, 252, 1)',
+                               bgColor='white',
                                justifyContent,
                                onVisibleAdd,
                                ref}) => {

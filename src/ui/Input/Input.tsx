@@ -1,5 +1,5 @@
 import React, {FC, useEffect, useState} from 'react';
-import {Wrap, InputStyled, Label, Alert} from "./Input.styled";
+import {Wrap, InputStyled, Label, Alert, TextAreaStyled} from "./Input.styled";
 
 interface IInput {
     label: string,
@@ -9,9 +9,11 @@ interface IInput {
     textColor?: string,
     borderColor?: string,
     borderFocusedColor?: string,
-    type?: 'text' | 'email' | 'password' | 'textarea'| 'only_letters'
+    type?: 'text' | 'email' | 'password' | 'textarea' | 'only_letters' | 'only_digits'
     isValid?: boolean
     setIsValid?: (isValid: boolean) => void,
+    className?: string,
+    id?: string,
 }
 
 const Input: FC<IInput> = ({
@@ -24,7 +26,9 @@ const Input: FC<IInput> = ({
                                borderFocusedColor,
                                type = "text",
                                isValid,
-                               setIsValid
+                               setIsValid,
+                               className,
+                               id
                            }) => {
 
     const [alert, setAlert] = useState('')
@@ -68,9 +72,25 @@ const Input: FC<IInput> = ({
                     if (value.length === 0) {
                         setIsValid(false)
                         setAlert('Поле не должно быть пустым')
-                    } else if(/[^а-яА-Я]+/.test(value)) {
+                    } else if (/[^а-яА-Я]+/.test(value)) {
                         setIsValid(false)
                         setAlert('Допустима только кириллица')
+                    } else {
+                        setIsValid(true)
+                        setAlert('')
+                    }
+                    break;
+                case "only_digits":
+                    if (value.length === 0) {
+                        setIsValid(false)
+                        setAlert('Поле не должно быть пустым')
+                    } else if (/\D+/.test(value)) {
+                        setIsValid(false)
+                        setAlert('Допустимы только цифры')
+                    }
+                    else if (+value <= 0) {
+                        setIsValid(false)
+                        setAlert('Должно быть неотрицательно')
                     } else {
                         setIsValid(true)
                         setAlert('')
@@ -93,15 +113,26 @@ const Input: FC<IInput> = ({
     }, [value])
 
     return (
-        <Wrap $width={width} $textColor={textColor}>
+        <Wrap $width={width} $textColor={textColor} className={className} id={id}>
             <Label>{label}</Label>
-            <InputStyled
-                value={value}
-                onChange={e => setValue(e.target.value)}
-                $borderColor={borderColor}
-                $borderFocusedColor={borderFocusedColor}
-                type={inputType}
-            />
+            {
+                inputType === 'textarea'
+                    ? <TextAreaStyled
+                        rows={6}
+                        value={value}
+                        onChange={e => setValue(e.target.value)}
+                        $borderColor={borderColor}
+                        $borderFocusedColor={borderFocusedColor}
+                    />
+                    : <InputStyled
+                        value={value}
+                        onChange={e => setValue(e.target.value)}
+                        $borderColor={borderColor}
+                        $borderFocusedColor={borderFocusedColor}
+                        type={inputType}
+                    />
+
+            }
             <Alert>{alert}</Alert>
         </Wrap>
     );

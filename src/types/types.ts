@@ -22,7 +22,7 @@ export interface IDfa {
     initial_price: number,
     price: number,
     category: ICategory,
-    confidence: IConfidence,
+    confidence?: IConfidence,
     payment: IPayment,
     created_at: string,
     owner: IUser,

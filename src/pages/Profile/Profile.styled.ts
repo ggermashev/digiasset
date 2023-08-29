@@ -12,6 +12,7 @@ const ProfileStyled = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 5em;
+  width: 100%;
 
   #create-dfa {
     //box-shadow: white 0 0 1em;
@@ -108,6 +109,7 @@ const Row = styled.div`
 `
 
 const Collection = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -138,4 +140,51 @@ const Switch = styled.div<ISwitch>`
   `}
 `
 
-export {ProfileStyled, PersonalInfo, Data, Row, Collection, Switch}
+const Products = styled.div`
+  margin: 4em 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1em;
+  width: 100%;
+
+  .dfa {
+    width: 95%;
+    margin: 0 auto;
+    max-width: 1400px;
+  }
+`
+
+const Up = styled.div`
+  width: 80%;
+  height: 50px;
+  background-color: #01001e;
+  border: 1px solid black;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    cursor: pointer;
+    border-color: white;
+  }
+`
+
+const Border = styled.div`
+  opacity: 0;
+  width: 100%;
+  height: 50px;
+`
+
+export {
+    ProfileStyled,
+    PersonalInfo,
+    Data,
+    Row,
+    Collection,
+    Switch,
+    Products,
+    Border,
+    Up
+}

@@ -18,7 +18,7 @@ const DfaStyled = styled.div`
     width: 10em;
   }
   
-  @media(max-width: 1050px) {
+  @media(max-width: 1150px) {
     flex-direction: column;
     align-items: center;
     max-width: 600px!important;
@@ -42,7 +42,7 @@ const Col = styled.div`
     text-align: start;
   }
 
-  @media(max-width: 1050px) {
+  @media(max-width: 1150px) {
     width: 100%;
     flex-direction: row;
     gap: 1em;

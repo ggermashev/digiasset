@@ -59,4 +59,24 @@ const Alert = styled.p`
   bottom: 0;
 `
 
-export {InputStyled, Wrap, Label, Alert}
+const TextAreaStyled = styled.textarea<IInput>`
+  padding: .7em;
+  border-radius: .7em;
+  border: 1px solid black;
+  width: 100%;
+  resize: vertical;
+
+  ${props => props.$borderColor && css`
+    border-color: ${props.$borderColor};
+  `}
+  &:focus {
+    outline: none;
+    border-color: #c1c5fc;
+
+    ${props => props.$borderFocusedColor && css`
+      border-color: ${props.$borderFocusedColor};
+    `}
+  }
+`
+
+export {InputStyled, Wrap, Label, Alert, TextAreaStyled}
