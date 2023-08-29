@@ -6,6 +6,8 @@ import Input from "../../ui/Input/Input";
 import FileInput from "../../ui/FileInput/FileInput";
 import Select from "../../ui/Select/Select";
 import Button from "../../ui/Button/Button";
+import {createDfa} from "../../api/api";
+import {ICategory, IDfa, IPayment} from "../../types/types";
 
 const DfaForm = () => {
 
@@ -26,16 +28,14 @@ const DfaForm = () => {
     const cats = ['Ценная бумага', 'Контракт', 'Договор', 'Другое']
     const payments = ['Деньги', 'ЦФА']
 
-    const [title, setTitle] = useState('')
+    const [name, setName] = useState('')
     const [description, setDescription] = useState('')
     const [image, setImage] = useState<string | undefined>()
-    const [price, setPrice] = useState('')
     const [cat, setCat] = useState(cats[0])
     const [payment, setPayment] = useState(payments[0])
 
     const [titleIsValid, setTitleIsValid] = useState(false)
     const [descriptionIsValid, setDescriptionIsValid] = useState(false)
-    const [priceIsValid, setPriceIsValid] = useState(false)
 
 
     return (
@@ -44,8 +44,8 @@ const DfaForm = () => {
                 <Input
                     className={'width'}
                     label={"Название"}
-                    value={title}
-                    setValue={setTitle}
+                    value={name}
+                    setValue={setName}
                     isValid={titleIsValid}
                     setIsValid={setTitleIsValid}
                 />
@@ -58,14 +58,6 @@ const DfaForm = () => {
                     type={"textarea"}
                     isValid={descriptionIsValid}
                     setIsValid={setDescriptionIsValid}
-                />
-                <Input
-                    label={'Цена, Руб'}
-                    value={price}
-                    setValue={setPrice}
-                    type={'only_digits'}
-                    isValid={priceIsValid}
-                    setIsValid={setPriceIsValid}
                 />
                 <Select
                     className={'select'}
@@ -86,8 +78,11 @@ const DfaForm = () => {
                 <Button
                     className={'submit-btn'}
                     onClick={() => {
-                        if (titleIsValid && descriptionIsValid && priceIsValid) {
-                            navigate('/profile')
+                        if (titleIsValid && descriptionIsValid) {
+                            createDfa({name: name, category: cat, payment, confidence: 'Не определено', price: 0, description} as IDfa).then(
+                                val => {navigate('/profile')},
+                                err => {console.log(err)}
+                            )
                         } else {
                             alert('Форма заполенна некорректно')
                         }

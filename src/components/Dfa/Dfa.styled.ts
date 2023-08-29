@@ -18,7 +18,8 @@ const DfaStyled = styled.div`
     width: 10em;
   }
   
-  @media(max-width: 1150px) {
+  @media(max-width: 1350px) {
+    padding-top: 2.5em;
     flex-direction: column;
     align-items: center;
     max-width: 600px!important;
@@ -28,13 +29,21 @@ const DfaStyled = styled.div`
     cursor: pointer;
     box-shadow: white 0 0 1em;
   }
+  
+  input[type='checkbox'] {
+    height: 2em;
+    width: 2em;
+    &:hover {
+      cursor: pointer;
+    }
+  }
 
 `
 
 const Col = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: start;
   justify-content: center;
   gap: .5em;
   
@@ -42,7 +51,7 @@ const Col = styled.div`
     text-align: start;
   }
 
-  @media(max-width: 1150px) {
+  @media(max-width: 1350px) {
     width: 100%;
     flex-direction: row;
     gap: 1em;
@@ -56,7 +65,18 @@ const Col = styled.div`
       text-align: start;
     }
   }
-  
 `
 
-export {DfaStyled, Col}
+const Publish = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 1em;
+  position: absolute;
+  top: .2em;
+  right: .2em;
+`
+
+
+export {DfaStyled, Col, Publish}

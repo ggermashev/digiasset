@@ -52,7 +52,6 @@ class User {
         refresh_token().then(
             val => {
                 this.setData(JSON.parse(localStorage.getItem('user_info') || "{}"))
-                console.log(this._isAuth)
             },
             err => {
                 this._isAuth = false

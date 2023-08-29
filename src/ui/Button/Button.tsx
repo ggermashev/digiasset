@@ -2,7 +2,7 @@ import React, {FC} from 'react';
 import {ButtonStyled} from "./Button.styled";
 
 interface IButton {
-    onClick: () => void,
+    onClick: (e?: React.MouseEvent) => void,
     children: React.ReactNode,
     theme?: 'light' | 'dark',
     className?: string,
@@ -11,7 +11,7 @@ interface IButton {
 
 const Button: FC<IButton> = ({children, onClick, theme, className, id}) => {
     return (
-        <ButtonStyled onClick={() => {onClick()}} $theme={theme} className={className} id={id}>
+        <ButtonStyled onClick={(e) => {onClick(e)}} $theme={theme} className={className} id={id}>
             {children}
         </ButtonStyled>
     );

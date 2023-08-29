@@ -21,6 +21,10 @@ const ProfileStyled = styled.div`
   h1 {
     text-align: center;
   }
+  
+  @media(max-width: 767px) {
+    padding: 1em;
+  }
 `
 
 const PersonalInfo = styled.div`

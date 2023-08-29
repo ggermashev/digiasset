@@ -19,7 +19,7 @@ const Login = observer(() => {
     useEffect(() => {
         setTimeout(() => {
             if (User.isAuth) {
-                navigate('/')
+                navigate('/profile')
             }
         }, 500)
 
@@ -55,7 +55,7 @@ const Login = observer(() => {
                             User.login(email, password)
                             setTimeout(() => {
                                 if (User.isAuth) {
-                                    navigate('/')
+                                    navigate('/profile')
                                 } else {
                                     console.log('Ошибка входа')
                                 }

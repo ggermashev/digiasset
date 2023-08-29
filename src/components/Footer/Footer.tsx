@@ -59,7 +59,7 @@ const Footer = () => {
             photo: `${require('../../images/vladimir.jpg')}`,
             name: 'Владимир',
             surname: 'Зворыгин',
-            role: 'Backend-developer',
+            role: 'TeamLead',
             description: 'Стэк технологий: Java / Kotlin, Python Django/Flask',
             tgNickname: '@WocherZ',
             tgLink: 'https://t.me/WocherZ',

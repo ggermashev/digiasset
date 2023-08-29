@@ -25,7 +25,7 @@ const Registration = observer(() => {
     useEffect(() => {
         setTimeout(() => {
             if (User.isAuth) {
-                navigate('/')
+                navigate('/profile')
             }
         }, 500)
 
@@ -88,7 +88,7 @@ const Registration = observer(() => {
                             User.registration({name, surname, nickname, email, password})
                             setTimeout(() => {
                                 if (User.isAuth) {
-                                    navigate('/')
+                                    navigate('/profile')
                                 } else {
                                     console.log('Ошибка регистрации')
                                 }

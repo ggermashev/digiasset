@@ -74,8 +74,8 @@ async function refresh_token() {
 
 async function getDfa(
     {category, confidence, payment, sortBy, limit = 12, offset = 0}:
-        { category?: ICategory, confidence?: IConfidence, payment?: IPayment, sortBy?: ISortBy, limit: number, offset: number }) {
-    let response = await fetch(`http://91.200.84.58:50055/api/dfa?` +
+        { category?: ICategory, confidence?: IConfidence, payment?: IPayment, sortBy?: ISortBy, limit?: number, offset?: number }) {
+    let response = await fetch(`http://91.200.84.58:50055/api/assets/published?` +
         `${category && `category=${category}`}&${confidence && `confidence=${confidence}`}&${payment && `payment=${payment}`}&${sortBy && `sort_by=${sortBy}`}&
         limit=${limit}&offset=${offset}`, {
         headers: {
@@ -85,7 +85,9 @@ async function getDfa(
     })
     if (!response.ok) {
         await refresh_token()
-        response = await fetch('http://91.200.84.58:50055/api/dfa', {
+        response = await fetch(`http://91.200.84.58:50055/api/assets/published?` +
+            `${category && `category=${category}`}&${confidence && `confidence=${confidence}`}&${payment && `payment=${payment}`}&${sortBy && `sort_by=${sortBy}`}&
+        limit=${limit}&offset=${offset}`, {
             headers: {
                 "Content-Type": "application/json",
                 'authorization': `Bearer ${localStorage.getItem('access_token')}`,
@@ -99,123 +101,24 @@ async function getDfa(
     return data
 }
 
-async function getDfaById(id: string) {
-    let response = await fetch(`http://91.200.84.58:50055/api/dfa/${id}`, {
-        headers: {
-            "Content-Type": "application/json",
-            'authorization': `Bearer ${localStorage.getItem('access_token')}`,
-        },
-    })
-    if (!response.ok) {
-        await refresh_token()
-        response = await fetch(`http://91.200.84.58:50055/api/dfa/${id}`, {
-            headers: {
-                "Content-Type": "application/json",
-                'authorization': `Bearer ${localStorage.getItem('access_token')}`,
-            },
-        })
-    }
-    if (!response.ok) {
-        throw new Error('Ошибка получения ЦФА')
-    }
-    const data = await response.json()
-    return data
-}
-
-async function createDfa(dfa: IDfa) {
-    let response = await fetch(`http://91.200.84.58:50055/api/dfa/`, {
+async function publishDfa(dfa_id: string, price: string) {
+    let response = await fetch(`http://91.200.84.58:50055/api/assets/publish`, {
         headers: {
             "Content-Type": "application/json",
             'authorization': `Bearer ${localStorage.getItem('access_token')}`,
         },
         method: 'POST',
-        body: JSON.stringify(dfa)
+        body: JSON.stringify({id: dfa_id, price: price})
     })
     if (!response.ok) {
         await refresh_token()
-        response = await fetch(`http://91.200.84.58:50055/api/dfa/`, {
+        response = await fetch(`http://91.200.84.58:50055/api/assets/publish`, {
             headers: {
                 "Content-Type": "application/json",
                 'authorization': `Bearer ${localStorage.getItem('access_token')}`,
             },
             method: 'POST',
-            body: JSON.stringify(dfa)
-        })
-    }
-    if (!response.ok) {
-        throw new Error('Ошибка создание ЦФА')
-    }
-    const data = await response.json()
-    return data
-}
-
-async function getDfaByUser(userId: string) {
-    let response = await fetch(`http://91.200.84.58:50055/api/dfa/user/${userId}`, {
-        headers: {
-            "Content-Type": "application/json",
-            'authorization': `Bearer ${localStorage.getItem('access_token')}`,
-        },
-    })
-    if (!response.ok) {
-        await refresh_token()
-        response = await fetch(`http://91.200.84.58:50055/api/dfa/user/${userId}`, {
-            headers: {
-                "Content-Type": "application/json",
-                'authorization': `Bearer ${localStorage.getItem('access_token')}`,
-            },
-        })
-    }
-    if (!response.ok) {
-        throw new Error('Ошибка создание ЦФА')
-    }
-    const data = await response.json()
-    return data
-}
-
-async function buyDfa(buyerId: string, dfaId: string) {
-    let response = await fetch(`http://91.200.84.58:50055/api/buy_dfa`, {
-        headers: {
-            "Content-Type": "application/json",
-            'authorization': `Bearer ${localStorage.getItem('access_token')}`,
-        },
-        method: 'POST',
-        body: JSON.stringify({buyer_id: buyerId, dfa_id: dfaId})
-    })
-    if (!response.ok) {
-        response = await fetch(`http://91.200.84.58:50055/api/by_dfa`, {
-            headers: {
-                "Content-Type": "application/json",
-                'authorization': `Bearer ${localStorage.getItem('access_token')}`,
-            },
-            method: 'POST',
-            body: JSON.stringify({buyer_id: buyerId, dfa_id: dfaId})
-        })
-    }
-    if (!response.ok) {
-        throw new Error('Ошибка покупки ЦФА')
-    }
-    const data = await response.json()
-    return data
-}
-
-async function publishDfa(dfaId: string, price: number, isPublished: boolean) {
-    let response = await fetch(`http://91.200.84.58:50055/api/publish_dfa/`, {
-        headers: {
-            "Content-Type": "application/json",
-            'authorization': `Bearer ${localStorage.getItem('access_token')}`,
-        },
-        method: 'POST',
-        body: JSON.stringify({dfa_id: dfaId, price, is_published: isPublished})
-    })
-    if (!response.ok) {
-        await refresh_token()
-        response = await fetch(`http://91.200.84.58:50055/api/publish_dfa/`, {
-            headers: {
-                "Content-Type": "application/json",
-                'authorization': `Bearer ${localStorage.getItem('access_token')}`,
-            },
-            method: 'POST',
-            body: JSON.stringify({dfa_id: dfaId, price})
+            body: JSON.stringify({id: dfa_id, price: price})
         })
     }
     if (!response.ok) {
@@ -225,4 +128,146 @@ async function publishDfa(dfaId: string, price: number, isPublished: boolean) {
     return data
 }
 
-export {login, registration, logout, refresh_token, getDfa, getDfaById, createDfa, getDfaByUser, buyDfa, publishDfa}
+async function unPublishDfa(dfa_id: string) {
+    let response = await fetch(`http://91.200.84.58:50055/api/assets/remove`, {
+        headers: {
+            "Content-Type": "application/json",
+            'authorization': `Bearer ${localStorage.getItem('access_token')}`,
+        },
+        method: 'POST',
+        body: JSON.stringify({id: dfa_id})
+    })
+    if (!response.ok) {
+        await refresh_token()
+        response = await fetch(`http://91.200.84.58:50055/api/assets/remove`, {
+            headers: {
+                "Content-Type": "application/json",
+                'authorization': `Bearer ${localStorage.getItem('access_token')}`,
+            },
+            method: 'POST',
+            body: JSON.stringify({id: dfa_id})
+        })
+    }
+    if (!response.ok) {
+        throw new Error('Ошибка публикации ЦФА')
+    }
+    const data = await response.json()
+    return data
+}
+
+async function getDfaById(id: string) {
+    let response = await fetch(`http://91.200.84.58:50055/api/assets?id=${id}`, {
+        headers: {
+            "Content-Type": "application/json",
+            'authorization': `Bearer ${localStorage.getItem('access_token')}`,
+        },
+    })
+    if (!response.ok) {
+        await refresh_token()
+        response = await fetch(`http://91.200.84.58:50055/api/assets?id=${id}`, {
+            headers: {
+                "Content-Type": "application/json",
+                'authorization': `Bearer ${localStorage.getItem('access_token')}`,
+            },
+        })
+    }
+    if (!response.ok) {
+        throw new Error('Ошибка получения ЦФА')
+    }
+    const data = await response.json()
+    return data
+}
+
+async function createDfa({name, category, payment, confidence, price, description}: IDfa) {
+    console.log(price)
+    let response = await fetch(`http://91.200.84.58:50055/api/assets/create`, {
+        headers: {
+            "Content-Type": "application/json",
+            'authorization': `Bearer ${localStorage.getItem('access_token')}`,
+        },
+        method: 'POST',
+        body: JSON.stringify({
+            name: name,
+            category: category,
+            payment: payment,
+            confidence: confidence,
+            price: price,
+            description: description
+        })
+    })
+    if (!response.ok) {
+        await refresh_token()
+        response = await fetch(`http://91.200.84.58:50055/api/assets/create`, {
+            headers: {
+                "Content-Type": "application/json",
+                'authorization': `Bearer ${localStorage.getItem('access_token')}`,
+            },
+            method: 'POST',
+            body: JSON.stringify({
+                name: name,
+                category: category,
+                payment: payment,
+                confidence: confidence,
+                price: price,
+                description: description
+            })
+        })
+    }
+    if (!response.ok) {
+        throw new Error('Ошибка создание ЦФА')
+    }
+    const data = await response.json()
+    return data
+}
+
+async function getDfaByUser() {
+    let response = await fetch(`http://91.200.84.58:50055/api/user/assets`, {
+        headers: {
+            "Content-Type": "application/json",
+            'authorization': `Bearer ${localStorage.getItem('access_token')}`,
+        },
+    })
+    if (!response.ok) {
+        await refresh_token()
+        response = await fetch(`http://91.200.84.58:50055/api/user/assets`, {
+            headers: {
+                "Content-Type": "application/json",
+                'authorization': `Bearer ${localStorage.getItem('access_token')}`,
+            },
+        })
+    }
+    if (!response.ok) {
+        throw new Error('Ошибка создание ЦФА')
+    }
+    const data = await response.json()
+    return data
+}
+
+async function buyDfa(dfaId: string) {
+    let response = await fetch(`http://91.200.84.58:50055/api/assets/buy`, {
+        headers: {
+            "Content-Type": "application/json",
+            'authorization': `Bearer ${localStorage.getItem('access_token')}`,
+        },
+        method: 'POST',
+        body: JSON.stringify({id: dfaId})
+    })
+    if (!response.ok) {
+        response = await fetch(`http://91.200.84.58:50055/api/assets/buy`, {
+            headers: {
+                "Content-Type": "application/json",
+                'authorization': `Bearer ${localStorage.getItem('access_token')}`,
+            },
+            method: 'POST',
+            body: JSON.stringify({id: dfaId})
+        })
+    }
+    if (!response.ok) {
+        throw new Error('Ошибка покупки ЦФА')
+    }
+    const data = await response.json()
+    return data
+}
+
+
+export {login, registration, logout, refresh_token, getDfa, getDfaById, createDfa, getDfaByUser, buyDfa, publishDfa, unPublishDfa}

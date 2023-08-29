@@ -13,6 +13,7 @@ import User from "./store/User"
 import {observer} from "mobx-react-lite";
 import DfaForm from "./pages/DfaForm/DfaForm";
 import ErrorPage from "./pages/ErrorPage/ErrorPage";
+import DfaPage from "./pages/DfaPage/DfaPage";
 
 const App = observer( () => {
 
@@ -40,6 +41,7 @@ const App = observer( () => {
                     <Route path={"/profile"} element={<Profile/>}/>
                     <Route path={"/marketplace"} element={<MarketPlace/>}/>
                     <Route path={"/create-dfa"} element={<DfaForm/>}/>
+                    <Route path={'/dfa/:dfa_id'} element={<DfaPage/>}/>
                     <Route path={"*"} element={<ErrorPage/>}/>
                 </Routes>
             </main>

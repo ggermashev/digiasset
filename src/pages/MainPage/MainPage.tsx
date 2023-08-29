@@ -3,8 +3,11 @@ import {MainPageStyled, Title, BG, Row, Law, Advantages} from "./MainPage.styled
 import Slide from "../../components/Slide/Slide";
 import gsap from "gsap"
 import Button from "../../ui/Button/Button";
+import {useNavigate} from "react-router-dom";
 
 const MainPage = () => {
+
+    const navigate = useNavigate()
 
     const [bgNumber, setBgNumber] = useState(0)
     const [bgNumberAfterBlur, setBgNumberAfterBlur] = useState(1)
@@ -191,8 +194,12 @@ const MainPage = () => {
                    }}
                    justifyContent={'space-around'}
             >
-                <Title $size={'big'}> <Button onClick={() => {}}>Создать свой ЦФА</Button></Title>
-                <Title $size={'big'}> <Button onClick={() => {}}>Приобрести ЦФА</Button></Title>
+                <Title $size={'big'}> <Button onClick={() => {
+                    navigate('/profile')
+                }}>Создать свой ЦФА</Button></Title>
+                <Title $size={'big'}> <Button onClick={() => {
+                    navigate('/marketplace')
+                }}>Приобрести ЦФА</Button></Title>
             </Slide>
 
         </MainPageStyled>
