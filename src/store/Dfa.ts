@@ -4,22 +4,31 @@ import {getDfa, getDfaByUser} from "../api/api";
 
 class Dfa {
 
-    _data: IDfa[] | undefined
+    _data: IDfa[]
 
     constructor() {
         makeAutoObservable(this)
-        this._data = undefined
+        this._data = []
     }
 
     get data() {
         return this._data
     }
 
-    async loadData({category, confidence, payment, sortBy, limit=12, offset=0}: {category?: ICategory, confidence?: IConfidence, payment?: IPayment, sortBy?: ISortBy,limit?: number, offset?: number}) {
+    async loadData({category, confidence, payment, sortBy, limit=12, offset=0}: {category?: ICategory | 'Все', confidence?: IConfidence | 'Все', payment?: IPayment | 'Все', sortBy?: ISortBy | 'Нет',limit?: number, offset?: number}) {
         try {
-            const data = await getDfa({})
-            console.log(data)
+            const data = await getDfa({category, confidence, payment, sortBy, limit, offset})
             this._data = [...data.assets]
+        } catch (e) {
+            console.log(e)
+        }
+
+    }
+
+    async addData({category, confidence, payment, sortBy, limit=12, offset=0}: {category?: ICategory | 'Все', confidence?: IConfidence | 'Все', payment?: IPayment | 'Все', sortBy?: ISortBy | 'Нет',limit?: number, offset?: number}) {
+        try {
+            const data = await getDfa({category, confidence, payment, sortBy, limit, offset})
+            this._data = [...this._data,...data.assets]
         } catch (e) {
             console.log(e)
         }

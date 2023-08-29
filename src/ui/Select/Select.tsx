@@ -7,7 +7,7 @@ interface ISelect {
     defaultOption: string,
     options: string[],
     value: string,
-    setValue: (val: string) => void,
+    setValue: (val: any) => void,
     className?: string,
 }
 

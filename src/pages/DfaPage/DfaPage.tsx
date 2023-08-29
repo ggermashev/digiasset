@@ -60,6 +60,9 @@ const DfaPage = () => {
                     <h2>{dfa?.name}</h2>
                     <Row>
                         <Button theme={'dark'} onClick={() => {
+                            buyDfa(dfa_id as string).then(() => {
+                                setModalIsVisible(true)
+                            })
                         }}>Купить</Button>
                         <Button theme={'dark'} onClick={() => {
                         }}>Предложить обмен</Button>
@@ -88,9 +91,9 @@ const DfaPage = () => {
                     </Row>
                     <h3>Владелец</h3>
                     <Owner>
-                        <Information title={"Имя"}>{purchases?.[0].name}</Information>
-                        <Information title={"Фамилия"}>{purchases?.[0].surname}</Information>
-                        <Information title={"Имя пользователя"}>{purchases?.[0].nickname}</Information>
+                        <Information title={"Имя"}>{purchases?.at(-1)?.name}</Information>
+                        <Information title={"Фамилия"}>{purchases?.at(-1)?.surname}</Information>
+                        <Information title={"Имя пользователя"}>{purchases?.at(-1)?.nickname}</Information>
                     </Owner>
                     <h3>История цен</h3>
 

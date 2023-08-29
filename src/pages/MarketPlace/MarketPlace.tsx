@@ -1,26 +1,26 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {Fragment, useCallback, useEffect, useState} from 'react';
 import {MarketPlaceStyled, Filters, Products, Up, Border} from "./MarketPlace.styled";
 import {useNavigate} from "react-router-dom";
 import User from "../../store/User";
 import {observer} from "mobx-react-lite";
 import Select from "../../ui/Select/Select";
 import Dfa from "../../components/Dfa/Dfa";
-import {IDfa} from "../../types/types";
+import {ICategory, IConfidence, IDfa, IPayment, ISortBy} from "../../types/types";
 import DfaStore from '../../store/Dfa'
 
 const MarketPlace = observer(() => {
 
     const navigate = useNavigate()
 
-    const cats = ['Ценная бумага', 'Контракт', 'Договор', 'Другое']
-    const confidences = ['Высокое', 'Низкое', 'Не определено']
-    const payments = ['Деньги', 'ЦФА']
-    const sorts = ['Дата выпуска', 'Цена']
+    const cats: ICategory[] = ['Ценная бумага', 'Контракт', 'Договор', 'Другое']
+    const confidences: IConfidence[] = ['Высокое', 'Низкое', 'Не определено']
+    const payments: IPayment[] = ['Деньги', 'ЦФА']
+    const sorts: ISortBy[] = ['Дата выпуска', 'Цена']
 
-    const [cat, setCat] = useState('Все')
-    const [confidence, setConfidence] = useState('Все')
-    const [payment, setPayment] = useState('Все')
-    const [sortBy, setSortBy] = useState('Нет')
+    const [cat, setCat] = useState<ICategory | 'Все'>('Все')
+    const [confidence, setConfidence] = useState<IConfidence | 'Все'>('Все')
+    const [payment, setPayment] = useState<IPayment | 'Все'>('Все')
+    const [sortBy, setSortBy] = useState<ISortBy | 'Нет'>('Нет')
 
     const [dfa, setDfa] = useState<IDfa[]>()
 
@@ -36,167 +36,23 @@ const MarketPlace = observer(() => {
         window.scroll(0, 0)
     }, [])
 
-    // const dfas: IDfa[] = [
-    //     {
-    //         image: require('../../images/ava.jpg'),
-    //         title: 'Крутой стартап',
-    //         initial_price: 1000,
-    //         price: 1500,
-    //         category: 'Контракт',
-    //         confidence: 'Высокое',
-    //         payment: 'ЦФА',
-    //         created_at: new Date().toLocaleDateString(),
-    //         owner: {
-    //             name: 'Иван',
-    //             surname: 'Иванов',
-    //             nickname: 'ivaivan',
-    //             email: 'ivaivan@gmail.com',
-    //
-    //         }
-    //     },
-    //     {
-    //         image: require('../../images/ava.jpg'),
-    //         title: 'Стартап неоч',
-    //         initial_price: 1000,
-    //         price: 1500,
-    //         category: 'Договор',
-    //         confidence: 'Низкое',
-    //         payment: 'Деньги',
-    //         created_at: new Date().toLocaleDateString(),
-    //         owner: {
-    //             name: 'Иван',
-    //             surname: 'Иванов',
-    //             nickname: 'ivaivan',
-    //             email: 'ivaivan@gmail.com',
-    //
-    //         }
-    //     },
-    //     {
-    //         image: require('../../images/ava.jpg'),
-    //         title: 'Я тестирую!',
-    //         initial_price: 1000,
-    //         price: 1500,
-    //         category: 'Ценная бумаги',
-    //         confidence: 'Не определено',
-    //         payment: 'ЦФА',
-    //         created_at: new Date().toLocaleDateString(),
-    //         owner: {
-    //             name: 'Иван',
-    //             surname: 'Иванов',
-    //             nickname: 'ivaivan',
-    //             email: 'ivaivan@gmail.com',
-    //
-    //         }
-    //     },
-    //     {
-    //         image: require('../../images/ava.jpg'),
-    //         title: 'qweqweqw',
-    //         initial_price: 1000,
-    //         price: 1500,
-    //         category: 'Контракт',
-    //         confidence: 'Высокое',
-    //         payment: 'ЦФА',
-    //         created_at: new Date().toLocaleDateString(),
-    //         owner: {
-    //             name: 'Иван',
-    //             surname: 'Иванов',
-    //             nickname: 'ivaivan',
-    //             email: 'ivaivan@gmail.com',
-    //
-    //         }
-    //     },
-    //     {
-    //         image: require('../../images/ava.jpg'),
-    //         title: 'asdasdasd',
-    //         initial_price: 1000,
-    //         price: 1500,
-    //         category: 'Договор',
-    //         confidence: 'Низкое',
-    //         payment: 'Деньги',
-    //         created_at: new Date().toLocaleDateString(),
-    //         owner: {
-    //             name: 'Иван',
-    //             surname: 'Иванов',
-    //             nickname: 'ivaivan',
-    //             email: 'ivaivan@gmail.com',
-    //
-    //         }
-    //     },
-    //     {
-    //         image: require('../../images/ava.jpg'),
-    //         title: 'zxczxczxczxc',
-    //         initial_price: 1000,
-    //         price: 1500,
-    //         category: 'Ценная бумаги',
-    //         confidence: 'Не определено',
-    //         payment: 'ЦФА',
-    //         created_at: new Date().toLocaleDateString(),
-    //         owner: {
-    //             name: 'Иван',
-    //             surname: 'Иванов',
-    //             nickname: 'ivaivan',
-    //             email: 'ivaivan@gmail.com',
-    //
-    //         }
-    //     },
-    //     {
-    //         image: require('../../images/ava.jpg'),
-    //         title: 'fghfghfghfgh',
-    //         initial_price: 1000,
-    //         price: 1500,
-    //         category: 'Контракт',
-    //         confidence: 'Высокое',
-    //         payment: 'ЦФА',
-    //         created_at: new Date().toLocaleDateString(),
-    //         owner: {
-    //             name: 'Иван',
-    //             surname: 'Иванов',
-    //             nickname: 'ivaivan',
-    //             email: 'ivaivan@gmail.com',
-    //
-    //         }
-    //     },
-    //     {
-    //         image: require('../../images/ava.jpg'),
-    //         title: 'hjkhjkhjkh',
-    //         initial_price: 1000,
-    //         price: 1500,
-    //         category: 'Договор',
-    //         confidence: 'Низкое',
-    //         payment: 'Деньги',
-    //         created_at: new Date().toLocaleDateString(),
-    //         owner: {
-    //             name: 'Иван',
-    //             surname: 'Иванов',
-    //             nickname: 'ivaivan',
-    //             email: 'ivaivan@gmail.com',
-    //
-    //         }
-    //     },
-    //     {
-    //         image: require('../../images/ava.jpg'),
-    //         title: 'uiouiouiouio',
-    //         initial_price: 1000,
-    //         price: 1500,
-    //         category: 'Ценная бумаги',
-    //         confidence: 'Не определено',
-    //         payment: 'ЦФА',
-    //         created_at: new Date().toLocaleDateString(),
-    //         owner: {
-    //             name: 'Иван',
-    //             surname: 'Иванов',
-    //             nickname: 'ivaivan',
-    //             email: 'ivaivan@gmail.com',
-    //
-    //         }
-    //     },
-    // ]
+
+    useEffect(() => {
+
+        (async () => {
+            await DfaStore.loadData({category: cat, confidence, payment, sortBy})
+            setDfa(DfaStore.data)
+        })()
+    }, [cat, confidence, payment, sortBy])
+
 
     const onVisible = useCallback((isVisible: boolean) => {
-        // if (isVisible) {
-        //     setDfa([...dfa, ...dfas
-        //     ])
-        // }
+        (async () => {
+            if (isVisible && dfa && dfa.length > 0) {
+                console.log(dfa?.length)
+                await DfaStore.addData({category: cat, confidence, payment, sortBy, offset: dfa?.length, limit: 12})
+            }
+        })()
     }, [dfa])
 
     useEffect(() => {
@@ -254,7 +110,7 @@ const MarketPlace = observer(() => {
             </Filters>
             <Products>
                 {dfa?.map((dfa, i) =>
-                    <>
+                    <Fragment key={dfa.id}>
                         <Dfa
                             id={dfa.id}
                             className={'dfa'}
@@ -271,9 +127,11 @@ const MarketPlace = observer(() => {
                             published={dfa.published}
                         />
                         {i % 12 === 11 && i > 0 &&
-                            <Up onClick={() => {window.scrollTo(0, 0)}}>Наверх</Up>
+                            <Up onClick={() => {
+                                window.scrollTo(0, 0)
+                            }}>Наверх</Up>
                         }
-                    </>
+                    </Fragment>
                 )}
                 <Border id={"border"}/>
             </Products>

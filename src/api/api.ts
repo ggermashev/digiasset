@@ -74,9 +74,10 @@ async function refresh_token() {
 
 async function getDfa(
     {category, confidence, payment, sortBy, limit = 12, offset = 0}:
-        { category?: ICategory, confidence?: IConfidence, payment?: IPayment, sortBy?: ISortBy, limit?: number, offset?: number }) {
+        { category?: ICategory | 'Все', confidence?: IConfidence | 'Все', payment?: IPayment | 'Все', sortBy?: ISortBy | 'Нет', limit?: number, offset?: number }) {
+    console.log(limit, offset)
     let response = await fetch(`http://91.200.84.58:50055/api/assets/published?` +
-        `${category && `category=${category}`}&${confidence && `confidence=${confidence}`}&${payment && `payment=${payment}`}&${sortBy && `sort_by=${sortBy}`}&
+        `${category !== 'Все' ? `category=${category}` : ''}&${confidence !== 'Все' ? `confidence=${confidence}` : ''}&${payment !== 'Все' ? `payment=${payment}` : ''}&${sortBy !== 'Нет' ? `sort_by=${sortBy}` : ''}&
         limit=${limit}&offset=${offset}`, {
         headers: {
             "Content-Type": "application/json",
@@ -86,7 +87,7 @@ async function getDfa(
     if (!response.ok) {
         await refresh_token()
         response = await fetch(`http://91.200.84.58:50055/api/assets/published?` +
-            `${category && `category=${category}`}&${confidence && `confidence=${confidence}`}&${payment && `payment=${payment}`}&${sortBy && `sort_by=${sortBy}`}&
+            `${category !== 'Все' ? `category=${category}` : ''}&${confidence !== 'Все' ? `confidence=${confidence}` : ''}&${payment !== 'Все' ? `payment=${payment}` : ''}&${sortBy !== 'Нет' ? `sort_by=${sortBy}` : ''}&
         limit=${limit}&offset=${offset}`, {
             headers: {
                 "Content-Type": "application/json",
