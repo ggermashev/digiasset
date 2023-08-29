@@ -29,7 +29,8 @@ const MarketPlace = observer(() => {
             if (!User.isAuth) {
                 navigate('/login')
             }
-            await DfaStore.loadData({})
+            await DfaStore.loadData({category: cat, confidence, payment, sortBy, limit: 6})
+            console.log(DfaStore.data.length)
             setDfa(DfaStore.data)
         }, 500)
 
@@ -40,7 +41,7 @@ const MarketPlace = observer(() => {
     useEffect(() => {
 
         (async () => {
-            await DfaStore.loadData({category: cat, confidence, payment, sortBy})
+            await DfaStore.loadData({category: cat, confidence, payment, sortBy, limit: 6})
             setDfa(DfaStore.data)
         })()
     }, [cat, confidence, payment, sortBy])
@@ -50,10 +51,10 @@ const MarketPlace = observer(() => {
         (async () => {
             if (isVisible && dfa && dfa.length > 0) {
                 console.log(dfa?.length)
-                await DfaStore.addData({category: cat, confidence, payment, sortBy, offset: dfa?.length, limit: 12})
+                await DfaStore.addData({category: cat, confidence, payment, sortBy, offset: dfa?.length, limit: 6})
             }
         })()
-    }, [dfa])
+    }, [dfa, cat, confidence, payment, sortBy])
 
     useEffect(() => {
         let options = {
@@ -99,14 +100,14 @@ const MarketPlace = observer(() => {
                     value={payment}
                     setValue={setPayment}
                 />
-                <Select
-                    className={'select'}
-                    title={'Сортировать'}
-                    defaultOption={'Нет'}
-                    options={sorts}
-                    value={sortBy}
-                    setValue={setSortBy}
-                />
+                {/*<Select*/}
+                {/*    className={'select'}*/}
+                {/*    title={'Сортировать'}*/}
+                {/*    defaultOption={'Нет'}*/}
+                {/*    options={sorts}*/}
+                {/*    value={sortBy}*/}
+                {/*    setValue={setSortBy}*/}
+                {/*/>*/}
             </Filters>
             <Products>
                 {dfa?.map((dfa, i) =>

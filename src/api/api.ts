@@ -73,12 +73,20 @@ async function refresh_token() {
 }
 
 async function getDfa(
-    {category, confidence, payment, sortBy, limit = 12, offset = 0}:
+    {category, confidence, payment, sortBy, limit = 6, offset = 0}:
         { category?: ICategory | 'Все', confidence?: IConfidence | 'Все', payment?: IPayment | 'Все', sortBy?: ISortBy | 'Нет', limit?: number, offset?: number }) {
-    console.log(limit, offset)
+    const sorts = {'Дата выпуска': 'datetime', 'Цена': 'price'}
+    let sort_by: any
+    if (sortBy === 'Дата выпуска') {
+        sort_by = 'datetime'
+    }
+    if (sortBy === 'Цена') {
+        sort_by = 'price'
+    }
+    console.log('api limit:' + limit)
+    console.log('api offset: '+ offset)
     let response = await fetch(`http://91.200.84.58:50055/api/assets/published?` +
-        `${category !== 'Все' ? `category=${category}` : ''}&${confidence !== 'Все' ? `confidence=${confidence}` : ''}&${payment !== 'Все' ? `payment=${payment}` : ''}&${sortBy !== 'Нет' ? `sort_by=${sortBy}` : ''}&
-        limit=${limit}&offset=${offset}`, {
+        `${category !== 'Все' ? `category=${category}&` : ''}${confidence !== 'Все' ? `confidence=${confidence}&` : ''}${payment !== 'Все' ? `payment=${payment}&` : ''}${sortBy !== 'Нет' ? `sort_by=${sort_by}&` : ''}limit=${limit}&offset=${offset}`, {
         headers: {
             "Content-Type": "application/json",
             'authorization': `Bearer ${localStorage.getItem('access_token')}`,
@@ -87,8 +95,7 @@ async function getDfa(
     if (!response.ok) {
         await refresh_token()
         response = await fetch(`http://91.200.84.58:50055/api/assets/published?` +
-            `${category !== 'Все' ? `category=${category}` : ''}&${confidence !== 'Все' ? `confidence=${confidence}` : ''}&${payment !== 'Все' ? `payment=${payment}` : ''}&${sortBy !== 'Нет' ? `sort_by=${sortBy}` : ''}&
-        limit=${limit}&offset=${offset}`, {
+            `${category !== 'Все' ? `category=${category}&` : ''}${confidence !== 'Все' ? `confidence=${confidence}&` : ''}${payment !== 'Все' ? `payment=${payment}&` : ''}${sortBy !== 'Нет' ? `sort_by=${sortBy}&` : ''}limit=${limit}&offset=${offset}`, {
             headers: {
                 "Content-Type": "application/json",
                 'authorization': `Bearer ${localStorage.getItem('access_token')}`,
@@ -99,6 +106,7 @@ async function getDfa(
         throw new Error('Ошибка получения ЦФА')
     }
     const data = await response.json()
+    console.log(data.assets.length)
     return data
 }
 
