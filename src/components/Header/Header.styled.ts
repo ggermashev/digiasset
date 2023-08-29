@@ -3,7 +3,7 @@ import styled, {css} from "styled-components";
 const HeaderStyled = styled.div`
   top: 0;
   left: 0;
-  z-index: 10;
+  z-index: 50;
   height: 4em;
   position: fixed;
   width: 100%;

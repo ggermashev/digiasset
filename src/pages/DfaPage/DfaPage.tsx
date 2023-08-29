@@ -113,7 +113,7 @@ const DfaPage = () => {
                 </LongInfo>
             </DfaPageStyled>
             <ModalWindow isVisible={modalIsVisible} setIsVisible={setModalIsVisible}>
-                <h1>Покупка прошла успешно!</h1>
+                <h1 style={{textAlign: 'center'}}>Покупка прошла успешно!</h1>
             </ModalWindow>
         </>
     );
