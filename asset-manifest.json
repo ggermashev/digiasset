@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/digiasset/static/css/main.7bd6b762.css",
+    "main.js": "/digiasset/static/js/main.121a2989.js",
+    "static/media/bg5.jpg": "/digiasset/static/media/bg5.c4db6bf4e55115fb7183.jpg",
+    "static/media/bg2.jpg": "/digiasset/static/media/bg2.c9ca97bd4835010aea98.jpg",
+    "static/media/bg3.jpg": "/digiasset/static/media/bg3.c5d299ba29b2f299d241.jpg",
+    "static/media/bg1.jpg": "/digiasset/static/media/bg1.1ac7f1e9b7d16e7532ba.jpg",
+    "static/media/vladimir.jpg": "/digiasset/static/media/vladimir.f081733cfddaca1d160f.jpg",
+    "static/media/gregory.jpg": "/digiasset/static/media/gregory.6f4e3947defdce3c94d4.jpg",
+    "static/media/maxim.jpg": "/digiasset/static/media/maxim.115a2c33e3bfb32769b4.jpg",
+    "static/media/bg0.jpg": "/digiasset/static/media/bg0.5f3864e393277ebb5943.jpg",
+    "static/media/konstantin.jpg": "/digiasset/static/media/konstantin.d30e4f19c7a75ee8418e.jpg",
+    "static/media/ava.jpg": "/digiasset/static/media/ava.cdaf7997cc6401100d2c.jpg",
+    "static/media/dmitry.jpg": "/digiasset/static/media/dmitry.4b5ddb029933aa796f7f.jpg",
+    "static/media/bg4.jpg": "/digiasset/static/media/bg4.69defe445daf2e262115.jpg",
+    "static/media/diagram.png": "/digiasset/static/media/diagram.cde3cce0ae8cfbd80d6e.png",
+    "index.html": "/digiasset/index.html",
+    "main.7bd6b762.css.map": "/digiasset/static/css/main.7bd6b762.css.map",
+    "main.121a2989.js.map": "/digiasset/static/js/main.121a2989.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.7bd6b762.css",
+    "static/js/main.121a2989.js"
+  ]
+}
