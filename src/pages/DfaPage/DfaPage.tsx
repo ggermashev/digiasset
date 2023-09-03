@@ -42,6 +42,7 @@ const DfaPage = () => {
                             return -1
                         }
                     })
+                    console.log(purch)
                     setPurchases(purch)
                 }
             )
